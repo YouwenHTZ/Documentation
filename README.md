@@ -50,10 +50,10 @@ exit
 ```
 - **Explications** :
 
-switchport mode access : Configure le port en mode accès (non trunk).
-switchport port-security maximum 4 : Limite à 4 adresses MAC par port.
-switchport port-security mac-address sticky : Enregistre automatiquement les adresses MAC apprises.
-switchport port-security violation shutdown : Désactive le port en cas de violation.
+- switchport mode access : Configure le port en mode accès (non trunk).
+- switchport port-security maximum 4 : Limite à 4 adresses MAC par port.
+- switchport port-security mac-address sticky : Enregistre automatiquement les adresses MAC apprises.
+- switchport port-security violation shutdown : Désactive le port en cas de violation.
 
 
 
