@@ -57,7 +57,14 @@ exit
 - switchport port-security mac-address sticky : Enregistre automatiquement les adresses MAC apprises.
 - switchport port-security violation shutdown : Désactive le port en cas de violation.
 
+### Limitation du taux de requêtes DHCP
 
+```bash
+ip dhcp snooping limit rate 4
+exit
+```
+- **Explications** :
 
+- Limite le nombre de requêtes DHCP par seconde pour éviter les attaques par inondation.
 
 
