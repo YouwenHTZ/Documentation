@@ -36,7 +36,9 @@ ip dhcp snooping trust
 exit
 ```
 
-- **Explication** : ip dhcp snooping trust : Marque le port comme "de confiance" (ex : port connecté à un serveur DHCP légitime).
+- **Explication** : 
+
+- ip dhcp snooping trust : Marque le port comme "de confiance" (ex : port connecté à un serveur DHCP légitime).
 
 ### Ports utilisateurs (untrusted)
 
