@@ -25,3 +25,18 @@ configure terminal
 ip dhcp snooping
 ip dhcp snooping vlan 1
 ip dhcp snooping information option
+```
+
+
+### Configuration des ports
+
+```bash
+interface gigabitEthernet 0/1
+ip dhcp snooping trust
+exit
+
+```
+
+
+
+
