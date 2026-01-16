@@ -27,7 +27,6 @@ ip dhcp snooping vlan 1
 ip dhcp snooping information option
 ```
 
-
 ### Configuration des ports
 
 ```bash
@@ -68,3 +67,22 @@ exit
 - Limite le nombre de requêtes DHCP par seconde pour éviter les attaques par inondation.
 
 
+## 3. Gestion des violations de port
+
+### Réactiver un port désactivé
+
+```bash
+interface fastEthernet 0/1
+shutdown
+no shutdown
+```
+
+## 3. Commandes de vérification
+
+### Afficher les adresses MAC apprises
+
+```bash
+show mac address-table count
+show mac address-table
+show port-security
+```
