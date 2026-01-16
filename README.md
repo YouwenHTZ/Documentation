@@ -38,5 +38,24 @@ exit
 
 - **Explication** : ip dhcp snooping trust : Marque le port comme "de confiance" (ex : port connecté à un serveur DHCP légitime).
 
+### Ports utilisateurs (untrusted)
+
+```bash
+interface range fastEthernet 0/1-24, gigabitEthernet 0/2
+switchport mode access
+switchport port-security maximum 4
+switchport port-security mac-address sticky
+switchport port-security violation shutdown
+exit
+```
+- **Explications** :
+
+- switchport mode access : Configure le port en mode accès (non trunk).
+- switchport port-security maximum 4 : Limite à 4 adresses MAC par port.
+- switchport port-security mac-address sticky : Enregistre automatiquement les adresses MAC apprises.
+- switchport port-security violation shutdown : Désactive le port en cas de violation.
+
+
+
 
 
