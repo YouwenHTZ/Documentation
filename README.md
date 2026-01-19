@@ -40,7 +40,7 @@ ip dhcp snooping trust
 exit
 ```
 
-- **Explication** : 
+- **Explications** : 
 
 - ip dhcp snooping trust : Marque le port comme "de confiance" (ex : port connecté à un serveur DHCP légitime).
 
@@ -94,7 +94,7 @@ show mac address-table count
 show mac address-table
 show port-security
 ```
-- **Explication** :
+- **Explications** :
 
 - show mac address-table count : Affiche le nombre d’entrées dans la table MAC.
 - show mac address-table : Liste toutes les adresses MAC apprises par le switch.
@@ -111,7 +111,7 @@ sudo yersinia dhcp -attack 1 -interface eth0
 sudo tcpdump -i eth0 port 67 or port 68
 ```
 
-- **Explication**
+- **Explications**
 
 - yersinia dhcp -attack 1 : Envoie des requêtes DHCP pour épuiser le pool d’adresses.
 - tcpdump : Capture le trafic DHCP pour analyse.
@@ -129,7 +129,7 @@ journalctl -u isc-dhcp-server -f
 systemctl restart isc-dhcp-server
 ```
 
-- **Explication**
+- **Explications**
 
 - journalctl : Affiche les logs du serveur DHCP en temps réel.
 - systemctl restart : Redémarre le service DHCP.
