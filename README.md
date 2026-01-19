@@ -71,6 +71,7 @@ exit
 
 - Limite le nombre de requêtes DHCP par seconde pour éviter les attaques par inondation.
 
+--- 
 
 ## 3. Gestion des violations de port
 
@@ -81,6 +82,8 @@ interface fastEthernet 0/1
 shutdown
 no shutdown
 ```
+
+--- 
 
 ## 4. Commandes de vérification
 
@@ -96,6 +99,8 @@ show port-security
 - show mac address-table count : Affiche le nombre d’entrées dans la table MAC.
 - show mac address-table : Liste toutes les adresses MAC apprises par le switch.
 - show port-security : Affiche l’état de la sécurité des ports.
+
+--- 
 
 ## 5. Simulation d'attaques (Kali Linux)
 
