@@ -77,7 +77,7 @@ shutdown
 no shutdown
 ```
 
-## 3. Commandes de vérification
+## 4. Commandes de vérification
 
 ### Afficher les adresses MAC apprises
 
@@ -86,3 +86,8 @@ show mac address-table count
 show mac address-table
 show port-security
 ```
+- **Explication** :
+
+- show mac address-table count : Affiche le nombre d’entrées dans la table MAC.
+- show mac address-table : Liste toutes les adresses MAC apprises par le switch.
+- show port-security : Affiche l’état de la sécurité des ports.
