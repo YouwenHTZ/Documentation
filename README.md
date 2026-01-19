@@ -1,6 +1,11 @@
-# Documentation : Sécurisation d'un switch contre les attaques DHCP et MAC
+# Documentation générale
 
 ---
+
+# Sécurisation d'un switch contre les attaques DHCP et MAC
+
+--- 
+
 
 ## 1. Introduction aux concepts clés
 
