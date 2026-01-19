@@ -91,3 +91,36 @@ show port-security
 - show mac address-table count : Affiche le nombre d’entrées dans la table MAC.
 - show mac address-table : Liste toutes les adresses MAC apprises par le switch.
 - show port-security : Affiche l’état de la sécurité des ports.
+
+## 5. Simulation d'attaques (Kali Linux)
+
+### Attaque DHCP Starvasion
+
+```bash
+sudo yersinia dhcp -attack 1 -interface eth0
+sudo tcpdump -i eth0 port 67 or port 68
+```
+
+- **Explication**
+
+- yersinia dhcp -attack 1 : Envoie des requêtes DHCP pour épuiser le pool d’adresses.
+- tcpdump : Capture le trafic DHCP pour analyse.
+
+### Attaque MAC Flooding 
+
+- **Explications**
+
+- Utilisez des outils comme macof (inclus dans dsniff) pour inonder le switch d’adresses MAC.
+
+### Surveillance du serveur DHCP (Linux)
+
+```bash
+journalctl -u isc-dhcp-server -f
+systemctl restart isc-dhcp-server
+```
+
+- **Explication**
+
+- journalctl : Affiche les logs du serveur DHCP en temps réel.
+- systemctl restart : Redémarre le service DHCP.
+
