@@ -30,6 +30,7 @@ configure terminal
 ip dhcp snooping
 ip dhcp snooping vlan 1
 ip dhcp snooping information option
+ip dhcp snooping limit rate 4
 ```
 
 ### Configuration des ports
