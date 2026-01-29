@@ -135,7 +135,11 @@ systemctl restart isc-dhcp-server
 - journalctl : Affiche les logs du serveur DHCP en temps réel.
 - systemctl restart : Redémarre le service DHCP.
 
+--- 
+
 # Configuration Switch
+
+--- 
 
 ## Configurer le VTP
 
