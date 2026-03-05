@@ -1,6 +1,15 @@
-# Configuration du switch
+# ⚙️Configuration du switch
 
 --- 
+
+## Annotations importantes
+
+- **DHCP Snooping** : Mécanisme de sécurité qui filtre les messages DHCP non autorisés en identifiant les ports "de confiance" (trust) et en bloquant les réponses DHCP provenant de ports non autorisés.
+- **Port Security** : Fonctionnalité qui limite le nombre d’adresses MAC autorisées sur un port et peut verrouiller le port en cas de violation.
+- **MAC Address Sticky** : Permet d’apprendre dynamiquement les adresses MAC connectées et de les enregistrer dans la configuration du switch.
+- **Violation Shutdown (sh)** : Action qui ferme le port en cas de violation de sécurité (trop d’adresses MAC ou MAC non autorisée).
+
+---
 
 ### Sécurisation d'un switch 
 
@@ -68,9 +77,9 @@ show port-security
 
 --- 
 
-# ⚙️CONFIGURATION BASIQUE
+# ⚙️Configuration basique
 
-## Configuration des ports
+### Configuration des ports
 
 ```bash
 interface gigabitEthernet 0/1
@@ -88,3 +97,15 @@ interface fastEthernet 0/1
 shutdown
 no shutdown
 ```
+
+--- 
+
+# Configurer le VTP
+
+```bash
+server(config)# vtp domain testVTP
+```
+
+- **Explication**
+
+- vtp domain [nomdudomaine] : Configurer le domaine VTP qui permet à tous les commutateurs d’être dans le même “groupe”
