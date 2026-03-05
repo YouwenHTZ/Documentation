@@ -1,4 +1,4 @@
-## Configuration du switch
+# Configuration du switch
 
 --- 
 
@@ -68,7 +68,7 @@ show port-security
 
 --- 
 
-### Configuration basique
+# ⚙️CONFIGURATION BASIQUE
 
 ## Configuration des ports
 
