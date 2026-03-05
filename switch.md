@@ -13,6 +13,39 @@
 
 ### Sécurisation d'un switch 
 
+## Sécurisation des accès
+
+### Mot de passe enable (mode privilégié) - chiffré
+```bash
+Switch(config)# enable secret MonMotDePasse
+```
+
+### Chiffrer tous les mots de passe en clair
+
+```bash
+Switch(config)# service password-encryption
+```
+
+### Console locale
+
+```bash
+Switch(config)# line console 0
+Switch(config-line)# password MonMdpConsole
+Switch(config-line)# login
+Switch(config-line)# exec-timeout 5 0   # Déconnexion après 5 min d'inactivité
+Switch(config-line)# exit
+```
+
+### Accès SSH (lignes VTY)
+
+```bash
+Switch(config)# line vty 0 15
+Switch(config-line)# transport input ssh
+Switch(config-line)# login local
+Switch(config-line)# exec-timeout 5 0
+Switch(config-line)# exit
+```
+
 ## Activation du DHCP Snooping
 
 ```bash
@@ -79,33 +112,178 @@ show port-security
 
 # ⚙️Configuration basique
 
-### Configuration des ports
+## Accès & Modes
 
 ```bash
-interface gigabitEthernet 0/1
-ip dhcp snooping limit rate 4
-ip dhcp snooping trust
-exit
+Switch>          # Mode utilisateur (limité)
+Switch> enable   # Passer en mode privilégié
+Switch#          # Mode privilégié
+
+Switch# configure terminal   # Entrer en mode configuration globale
+Switch(config)#              # Mode configuration globale
+
+Switch(config)# exit         # Retourner au mode précédent
+Switch(config)# end          # Retourner directement au mode privilégié
+Switch# disable              # Revenir au mode utilisateur
 ```
 
---- 
+---
 
-### Réactiver un port désactivé
+## Nom d'hôte & Bannière
 
 ```bash
-interface fastEthernet 0/1
-shutdown
-no shutdown
+Switch(config)# hostname SW1
+
+Switch(config)# banner motd #
+  Accès autorisé uniquement !
+#
 ```
 
---- 
+---
 
-# Configurer le VTP
+## Sécurisation des accès
 
 ```bash
-server(config)# vtp domain testVTP
+# Mot de passe enable (mode privilégié) - chiffré
+Switch(config)# enable secret MonMotDePasse
+
+# Chiffrer tous les mots de passe en clair
+Switch(config)# service password-encryption
+
+# Console locale
+Switch(config)# line console 0
+Switch(config-line)# password MonMdpConsole
+Switch(config-line)# login
+Switch(config-line)# exec-timeout 5 0   # Déconnexion après 5 min d'inactivité
+Switch(config-line)# exit
+
+# Accès SSH (lignes VTY)
+Switch(config)# line vty 0 15
+Switch(config-line)# transport input ssh
+Switch(config-line)# login local
+Switch(config-line)# exec-timeout 5 0
+Switch(config-line)# exit
 ```
 
-- **Explication**
+---
 
-- vtp domain [nomdudomaine] : Configurer le domaine VTP qui permet à tous les commutateurs d’être dans le même “groupe”
+## Compte local & SSH
+
+```bash
+# Créer un utilisateur local
+Switch(config)# username admin privilege 15 secret MonMdpAdmin
+
+# Configurer SSH (obligatoire : nom de domaine + clé RSA)
+Switch(config)# ip domain-name monreseau.local
+Switch(config)# crypto key generate rsa modulus 2048
+Switch(config)# ip ssh version 2
+Switch(config)# ip ssh time-out 60
+Switch(config)# ip ssh authentication-retries 3
+```
+
+---
+
+## Interface de gestion (VLAN 1 ou VLAN dédié)
+
+```bash
+# Adresse IP sur le VLAN de gestion
+Switch(config)# interface vlan 1
+Switch(config-if)# ip address 192.168.1.10 255.255.255.0
+Switch(config-if)# no shutdown
+Switch(config-if)# exit
+
+# Passerelle par défaut
+Switch(config)# ip default-gateway 192.168.1.1
+```
+
+---
+
+## Configuration des VLANs
+
+```bash
+# Créer des VLANs
+Switch(config)# vlan 10
+Switch(config-vlan)# name Serveurs
+Switch(config-vlan)# exit
+
+Switch(config)# vlan 20
+Switch(config-vlan)# name Bureaux
+Switch(config-vlan)# exit
+
+Switch(config)# vlan 99
+Switch(config-vlan)# name Management
+Switch(config-vlan)# exit
+```
+
+---
+
+## Configuration des ports Access
+
+```bash
+Switch(config)# interface FastEthernet 0/1
+Switch(config-if)# switchport mode access
+Switch(config-if)# switchport access vlan 10
+Switch(config-if)# spanning-tree portfast       # Pour ports end-device
+Switch(config-if)# spanning-tree bpduguard enable
+Switch(config-if)# no shutdown
+Switch(config-if)# exit
+
+# Appliquer sur une plage de ports
+Switch(config)# interface range FastEthernet 0/1 - 12
+Switch(config-if-range)# switchport mode access
+Switch(config-if-range)# switchport access vlan 20
+Switch(config-if-range)# spanning-tree portfast
+Switch(config-if-range)# no shutdown
+Switch(config-if-range)# exit
+```
+
+---
+
+## Configuration des ports Trunk (vers routeur ou autre switch)
+
+```bash
+Switch(config)# interface GigabitEthernet 0/1
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# switchport trunk native vlan 99       # VLAN natif (sécurité)
+Switch(config-if)# switchport trunk allowed vlan 10,20,99
+Switch(config-if)# no shutdown
+Switch(config-if)# exit
+```
+
+---
+
+## Sauvegarde & Vérification
+
+```bash
+# Sauvegarder la configuration en cours
+Switch# copy running-config startup-config
+# ou
+Switch# write memory
+
+# Vérifications essentielles
+Switch# show running-config
+Switch# show startup-config
+Switch# show version
+Switch# show interfaces status
+Switch# show vlan brief
+Switch# show interfaces trunk
+Switch# show mac address-table
+Switch# show spanning-tree
+Switch# show port-security
+Switch# show ip ssh
+Switch# show cdp neighbors
+Switch# show etherchannel summary
+Switch# show logging
+```
+
+---
+
+## Réinitialisation complète (si nécessaire)
+
+```bash
+Switch# write erase          # Efface la startup-config
+Switch# delete vlan.dat      # Supprime la base VLAN
+Switch# reload               # Redémarre le switch
+```
+
+---
