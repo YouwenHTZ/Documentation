@@ -6,7 +6,6 @@
 
 --- 
 
-
 ## 1. Introduction aux concepts clés
 
 ### Annotations importantes
@@ -32,7 +31,6 @@ ip dhcp snooping trust
 exit
 ```
  
-
 ## 3. Gestion des violations de port
 
 ### Réactiver un port désactivé
@@ -78,18 +76,4 @@ systemctl restart isc-dhcp-server
 - systemctl restart : Redémarre le service DHCP.
 
 --- 
-
-# Configuration Switch
-
---- 
-
-## Configurer le VTP
-
-```bash
-server(config)# vtp domain testVTP
-```
-
-- **Explication**
-
-- vtp domain [nomdudomaine] : Configurer le domaine VTP qui permet à tous les commutateurs d’être dans le même “groupe”
 
