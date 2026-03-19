@@ -171,6 +171,60 @@ Router(config-router)# exit
 
 ---
 
+
+## Routage dynamique - RIP
+
+```bash
+# Activer RIP
+Router(config)# router rip
+Router(config-router)# version 2
+Router(config-router)# no auto-summary
+```
+
+# Annoncer les réseaux
+```bash
+Router(config-router)# network 192.168.1.0
+Router(config-router)# network 10.0.12.0
+```
+
+# Passive interface (interfaces vers les PCs)
+```bash
+Router(config-router)# passive-interface GigabitEthernet 0/0
+```
+
+# Propager la route par défaut (routeur connecté à Internet)
+```bash
+Router(config-router)# default-information originate
+Router(config-router)# exit
+```
+
+# Route par défaut vers le FAI
+```bash
+Router(config)# ip route 0.0.0.0 0.0.0.0 203.0.113.1
+```
+
+# Authentification MD5
+```bash
+Router(config)# key chain CLE_RIP
+Router(config-keychain)# key 1
+Router(config-keychain-key)# key-string MonMotDePasse
+Router(config-keychain-key)# exit
+Router(config-keychain)# exit
+Router(config)# interface GigabitEthernet 0/1
+Router(config-if)# ip rip authentication mode md5
+Router(config-if)# ip rip authentication key-chain CLE_RIP
+Router(config-if)# exit
+```
+
+# Vérification
+```bash
+Router# show ip route rip
+Router# show ip protocols
+Router# show ip rip database
+```
+
+---
+
 ## NAT / PAT (Accès Internet)
 
 ```bash
